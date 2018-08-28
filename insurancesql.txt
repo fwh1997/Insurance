@@ -1,0 +1,207 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost_3308
+Source Server Version : 50532
+Source Host           : localhost:3308
+Source Database       : insurancedb
+
+Target Server Type    : MYSQL
+Target Server Version : 50532
+File Encoding         : 65001
+
+Date: 2018-08-28 17:05:28
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `aId` int(11) NOT NULL AUTO_INCREMENT,
+  `aName` char(10) NOT NULL,
+  `aPwd` char(15) NOT NULL,
+  `aPermission` enum('') DEFAULT NULL,
+  PRIMARY KEY (`aId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'admin', '12346789', null);
+
+-- ----------------------------
+-- Table structure for `breply`
+-- ----------------------------
+DROP TABLE IF EXISTS `breply`;
+CREATE TABLE `breply` (
+  `bId` int(11) NOT NULL AUTO_INCREMENT,
+  `bDesc` char(50) DEFAULT NULL,
+  `cPayMoney` int(11) NOT NULL COMMENT '赔偿金额',
+  `pName` char(50) DEFAULT NULL,
+  `aId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`bId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of breply
+-- ----------------------------
+INSERT INTO `breply` VALUES ('1', '我司同意你的赔保申请，在1-3个工作日将有专人向您联系', '100000', '平安福寿安康保险', '1');
+INSERT INTO `breply` VALUES ('2', '不同意', '0', '平安福寿安康保险', '1');
+
+-- ----------------------------
+-- Table structure for `business`
+-- ----------------------------
+DROP TABLE IF EXISTS `business`;
+CREATE TABLE `business` (
+  `bId` int(11) NOT NULL AUTO_INCREMENT,
+  `bPaymentTime` date DEFAULT NULL,
+  `bMoney` int(11) NOT NULL COMMENT '金额',
+  `bDescription` char(50) DEFAULT NULL,
+  `rId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`bId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of business
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `claim`
+-- ----------------------------
+DROP TABLE IF EXISTS `claim`;
+CREATE TABLE `claim` (
+  `cId` int(11) NOT NULL AUTO_INCREMENT,
+  `cDesc` varchar(100) DEFAULT NULL,
+  `cFile` char(50) DEFAULT NULL,
+  `pName` char(50) DEFAULT NULL,
+  PRIMARY KEY (`cId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of claim
+-- ----------------------------
+INSERT INTO `claim` VALUES ('1', '这是索赔的描述', 'ReadMe.txt', '平安福寿安康保险');
+INSERT INTO `claim` VALUES ('2', '我要赔保，我的腿断了', '断腿.txt', '平安福寿安康保险');
+INSERT INTO `claim` VALUES ('3', '我被车撞了，需要住院补贴', 'AS_SSD_Benchmark.zip', '平安福寿安康保险');
+
+-- ----------------------------
+-- Table structure for `policy`
+-- ----------------------------
+DROP TABLE IF EXISTS `policy`;
+CREATE TABLE `policy` (
+  `pId` int(11) NOT NULL AUTO_INCREMENT,
+  `pName` char(50) NOT NULL,
+  `pMoney` int(11) DEFAULT NULL COMMENT '保险售价',
+  `pMinLose` int(11) DEFAULT NULL COMMENT '最小赔付金额',
+  `pMaxLose` int(11) DEFAULT NULL COMMENT '最大赔付金额',
+  `pDesc` varchar(100) DEFAULT NULL COMMENT '保险产品描述',
+  `tName` char(30) DEFAULT NULL COMMENT '产品类型',
+  `pImg` char(50) DEFAULT NULL,
+  PRIMARY KEY (`pId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of policy
+-- ----------------------------
+INSERT INTO `policy` VALUES ('1', '平安福寿安康保险', '2000', '10000', '100000', '平安福寿安康保险（平安人寿）', '寿险', '15288710929511.png');
+INSERT INTO `policy` VALUES ('2', '全能英才少儿教育金', '370', '90000', '900000', '独享5大优势，为孩子的未来成长进行投资，最高可享170.4万育儿金', '寿险', '15277477134794.png');
+INSERT INTO `policy` VALUES ('3', '一年期综合意外保险', '300', '10000', '300000', '性价比极高\r\n每天不到1块钱，全年保障几十万同等保障，价格更低', '意外险', '1527748578361.png');
+INSERT INTO `policy` VALUES ('4', '平安e家保2018', '100', '10000', '100000', '专家随时问，药瓶送上门，看病不排队，门诊打对折', '健康险', '15277487626057.png');
+INSERT INTO `policy` VALUES ('5', '全能英才教育金', '1000', '10000', '50000', '独享5大优势，为孩子的未来成长进行投资，最高可享170.4万育儿金', '儿童险', '20180727160557.png');
+INSERT INTO `policy` VALUES ('6', '平安洁牙卡', '160', '1000', '5000', '精选齿科网络，17座城市120余所知名齿科 全面齿科护理 高额齿科保障', '健康险', 'QQ浏览器截图20180728151301.png');
+INSERT INTO `policy` VALUES ('7', '运动卫士', '58', '1000', '50000', '保护每个热爱运动的你，可保一天也可宝一年，最低只需0.6元/天', '健康险', 'QQ浏览器截图20180728151525.png');
+INSERT INTO `policy` VALUES ('8', '短期综合意外险', '100', '1000', '500000', '提供全方位综合保障,保额最高可达1000万元', '意外险', 'QQ浏览器截图20180728151733.png');
+INSERT INTO `policy` VALUES ('9', '少儿超能宝两全保险(3.0)', '500', '10000', '150000', '少儿超能宝3.0保险产品计划涵盖了100种重大疾病和50种特定疾病(轻症)，其中包含了儿童常见的白血病、严重川崎病以及重症手足口病等，保障范围更广，为您的宝宝提供更加全面的健康保障', '儿童险', 'QQ截图20180729185926.png');
+
+-- ----------------------------
+-- Table structure for `regpolicy`
+-- ----------------------------
+DROP TABLE IF EXISTS `regpolicy`;
+CREATE TABLE `regpolicy` (
+  `rId` int(11) NOT NULL AUTO_INCREMENT,
+  `rDateReg` date NOT NULL COMMENT '购买日期',
+  `rTerm` tinyint(4) DEFAULT NULL COMMENT '保险期限',
+  `rStatus` tinyint(4) NOT NULL COMMENT '保险状态',
+  `zName` char(10) DEFAULT NULL COMMENT '被保人真实姓名',
+  `zNumber` char(18) DEFAULT NULL COMMENT '被保人身份证号码',
+  `iName` char(10) DEFAULT NULL COMMENT '投保人真实姓名',
+  `iNumber` char(18) DEFAULT NULL COMMENT '投保人身份证号码',
+  `pName` char(50) DEFAULT NULL COMMENT '保险名称',
+  `pMoney` int(11) DEFAULT NULL COMMENT '保险售价',
+  `pMinLose` int(11) DEFAULT NULL COMMENT '最小赔付金额',
+  `pMaxLose` int(11) DEFAULT NULL COMMENT '最大赔付金额',
+  PRIMARY KEY (`rId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of regpolicy
+-- ----------------------------
+INSERT INTO `regpolicy` VALUES ('1', '2018-07-25', '1', '0', '小黄同学他妈妈', '360602188805052122', '小黄同学', '360602199710308752', '平安福寿安康保险', '1000', '10000', '100000');
+
+-- ----------------------------
+-- Table structure for `type`
+-- ----------------------------
+DROP TABLE IF EXISTS `type`;
+CREATE TABLE `type` (
+  `tId` int(11) NOT NULL AUTO_INCREMENT,
+  `tName` char(30) NOT NULL,
+  PRIMARY KEY (`tId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of type
+-- ----------------------------
+INSERT INTO `type` VALUES ('1', '寿险');
+INSERT INTO `type` VALUES ('2', '意外险');
+INSERT INTO `type` VALUES ('3', '金融险');
+INSERT INTO `type` VALUES ('4', '儿童险');
+INSERT INTO `type` VALUES ('5', '旅游险');
+INSERT INTO `type` VALUES ('6', '车险');
+INSERT INTO `type` VALUES ('7', '健康险');
+
+-- ----------------------------
+-- Table structure for `userinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `userinfo`;
+CREATE TABLE `userinfo` (
+  `uId` int(11) NOT NULL AUTO_INCREMENT,
+  `uName` char(30) NOT NULL,
+  `uPwd` char(15) NOT NULL,
+  `uEmail` char(30) NOT NULL,
+  PRIMARY KEY (`uId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of userinfo
+-- ----------------------------
+INSERT INTO `userinfo` VALUES ('1', '张三', '123a', '');
+INSERT INTO `userinfo` VALUES ('2', '李四', '1234a', '');
+INSERT INTO `userinfo` VALUES ('3', '黄泰迪', '123', '241342131@qq.com');
+INSERT INTO `userinfo` VALUES ('4', '柯基', '123', '1231231@163.com');
+
+-- ----------------------------
+-- Table structure for `zinfo`
+-- ----------------------------
+DROP TABLE IF EXISTS `zinfo`;
+CREATE TABLE `zinfo` (
+  `zId` int(11) NOT NULL AUTO_INCREMENT,
+  `zName` char(10) NOT NULL COMMENT '被保人真实姓名',
+  `zNumber` char(18) NOT NULL COMMENT '被保人身份证号',
+  `zBirthday` date NOT NULL COMMENT '出生日期',
+  `zTel` char(15) NOT NULL COMMENT '本人联系电话',
+  `zAddress` char(50) NOT NULL COMMENT '本人现住址',
+  `iName` char(10) DEFAULT NULL COMMENT '投保人真实姓名',
+  `iNumber` char(18) DEFAULT NULL COMMENT '投保人身份证号码',
+  `iTel` char(15) NOT NULL COMMENT '投保人联系电话',
+  `iAddress` char(50) NOT NULL COMMENT '投保人现住址',
+  PRIMARY KEY (`zId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of zinfo
+-- ----------------------------
+INSERT INTO `zinfo` VALUES ('1', '黄玉龙', '360602111122223652', '2018-07-11', '13855566632', '算法萨达三打四', '黄泰迪', '36060893654112587', '18822366417', '撒的发生大');
+INSERT INTO `zinfo` VALUES ('2', '何大风', '336662229988221155', '1996-12-02', '15522335521', '啊发发而乏味服务器', '黄玉龙', '360665552211114444', '12345678900', '暗示法而奋斗去外地群午餐的');
